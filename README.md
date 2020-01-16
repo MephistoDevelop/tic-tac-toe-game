@@ -1,137 +1,42 @@
-# To-Do List Project
+# Tic Tac Toe Game Project
 
-> Project taked from Microverse Curriculum from [The Odin Page project Site]().
+> Project taked from Microverse Curriculum from the The Odin Page project site.
 
-### Desktop view
+![screenshot](./assets/images/screenshot.gif)
 
-![screenshot](./dist/img/desktop.png)
+Javascript project from The Odin Project [curriculum]()
 
-### Mobile view
+## Built With Javascript
 
-![screenshot](./dist/img/mobile.png)
-
-Javascript with Webpack project from [The Odin Project curriculum](https://www.theodinproject.com/courses/javascript/lessons/todo-list)
-
-## Built With Javascript and Webpack
-
-- Html,Css,JavaScript
-- Webpack
-- npm manager
+- Html
+- Css
+- JavaScript
 
 ## Live Demo
 
-[Live Demo Link](https://mephistodevelop.github.io/ToDo-List/)
+[Live Demo Link](https://mephistodevelop.github.io/tic-tac-toe/)
 
 ## Getting Started
 
-### Prerequisites
-
--before to run this project you will need to install before webpack and configure the live server on your webpac.config file. you can check more about it on this [page](https://webpack.js.org/guides/installation/) .
-[npm install and config: ](https://docs.npmjs.com/cli/install)
+-To start to use this proyect download this repository to your computer and descompress all the files, after open your terminal from the containing folder and open the index.html file on Google Chrome browser.
 
 ### Setup
 
-To use this project you will need to download this repository and put in on your computer.
-after you will need to install webpack and npm to run correctlly this project.
-
-in `package.json` file on the rules we are going to put this:
-
-```
- "scripts": {
- "test": "echo \"Error: no test specified\" && exit >1",
- "build": "webpack --mode production",
- "builddev": "webpack --mode development",
- "start": "webpack-dev-server --mode development >--open"
- }
-```
-
-Install Webpack live Server plugin with this command:
-
-`npm install --save-dev browser-sync-webpack-plugin`
-
-in `webpack.config.js` file we are going to put this config to use live-sync browser reloaded automatly using `npm run start` :
-
-```
-const path = require('path');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-
-module.exports = {
-entry: './src/index.js',
-output: {
-filename: 'main.js',
-path: path.resolve(\_\_dirname, 'dist'),
-},
-watch: true,
-module: {
-rules: [
-{
-test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-use: ['file-loader'],
-},
-],
-},
-};
-
-module.exports = {
-watch: true,
-plugins: [
-new BrowserSyncPlugin({
-host: 'localhost',
-port: 3001,
-files: [
-'./dist/*.html',
-'./dist/*.js',
-'./dist/*.css',
-'./src/*.js',
-'./src/img/*.jpg',
-],
-server: { baseDir: ['dist'] },
-}),
-],
-};
-```
-
-Installing Bootstrap
-
-Use the following command to install Bootstrap and its peer dependencies, jQuery and Popper:
-
-\$ npm install bootstrap jquery popper.js --save
-
-If you choose to import Bootstrap’s JavaScript plugins individually as needed, you must also install exports-loader.
-
-\$ npm install exports-loader --save-dev
-
-You’ll need to install the required loaders and postcss plugins for compiling and bundling Bootstrap precompiled Sass files.
-
-\$ npm install autoprefixer css-loader node-sass postcss-loader sass-loader style-loader --save-dev
+To use this project you will need to download this repository and save in your computer.
 
 ### Deployment
 
-To deploy the application and see it on the browser you can use npm to do that task on the server provider by webpack. to run the live server you will need to open your project folder terminal and run this commands:
+steps to run the webpage on the browser:
 
-```
-`npm install`
-`npm run build`
-`npm i -D webpack-dev-server`
-`npm i browser-sync --save`
-''
-```
-
-To Run the Linter files you will need to run this commands on the terminal :
-
-```
-`npm install eslint eslint-config-airbnb --save-dev`
-`npx eslint --init`
-`npx eslint`
-```
-
-after you will need to enter to [Stickler Page](https://stickler-ci.com/) and activate your repository.
+- open the index.html file with any browser
 
 ## Authors
+
+👤 **Ansar Yergeshov**
+
+- Github: [@ansaryergesh](https://github.com/ansaryergesh)
+- Twitter: [@ansaryergesh](https://twitter.com/ansaryergesh)
+- Linkedin: [Ansar Yergeshov](https://www.linkedin.com/in/ansaryergesh/)
 
 👤 **Cristian Ines Hernandez A. - MephistoDevelop**
 
@@ -149,10 +54,16 @@ Feel free to check the [issues page](issues/).
 
 Give a ⭐️ if you like this project!
 
+## Acknowledgments
+
+This page was inspired by my own bussines i'm a food-seller on my free times while im not writing code.
+
 ## 📝 License
 
 This project is [MIT](lic.url) licensed.
 
-### Author:
+### Authors:
 
-[Cristian Ines (MephistoDevelop)](https://github.com/MephistoDevelop)
+- [Ansar Yergeshov](https://github.com/ansaryergesh)
+
+- [Cristian Ines (MephistoDevelop)](https://github.com/MephistoDevelop)
