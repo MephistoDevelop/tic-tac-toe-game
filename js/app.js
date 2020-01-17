@@ -33,7 +33,7 @@ const Player = (name, mark) => {
 const displayController = (() => {
   const player1 = Player('Ansar', 'X');
   const player2 = Player('Memphisto', 'O');
-
+  const msg = document.getElementById('messages');
   function clickCounter() {
     let counter = 0;
     return () => {
@@ -69,7 +69,7 @@ const displayController = (() => {
       }
 
       if (counter === 9 && endgame !== true) {
-        document.getElementById('messages').innerText = 'draw game!';
+        msg.innerText = 'draw game!';
         endgame = true;
         removeMark(e);
         beep.src =
@@ -90,11 +90,11 @@ const displayController = (() => {
     beep.play();
   };
   const switchTurn = (counter) => {
-    const message = document.getElementById('messages');
+  
     if (counter % 2 === 0) {
-      message.innerText = `${player1.getName()}'s Turn`;
+      msg.innerText = `${player1.getName()}'s Turn`;
     } else {
-      message.innerText = `${player2.getName()}'s Turn`;
+      msg.innerText = `${player2.getName()}'s Turn`;
     }
   };
 
@@ -106,7 +106,7 @@ const displayController = (() => {
   };
 
   function winMessage(name) {
-    document.getElementById('messages').innerText = `${name} is winner!`;
+    msg.innerText = `${name} is winner!`;
   }
 
   const winning = (board, symbol) => {
@@ -123,18 +123,18 @@ const displayController = (() => {
 
     win.forEach((element) => {
       if (
-        board[element[0]] === symbol &&
-        board[element[1]] === symbol &&
-        board[element[2]] === symbol
+        board[element[0]] === symbol
+        && board[element[1]] === symbol
+        && board[element[2]] === symbol
       ) {
         endgame = true;
       }
     });
   };
   const newGame = () => {
-    let newBtn = document.getElementById('button');
+    const newBtn = document.getElementById('button');
     newBtn.addEventListener('click', () => {
-      location.reload();
+      window.location.reload();
     });
   };
 
