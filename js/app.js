@@ -37,7 +37,7 @@ const displayController = (() => {
     let player2 = Player("Memphisto", "O");
     let countClicks = clickCounter();
     let counter = 0;
-
+    let endgame = false;
 
     function clickCounter() {
         let counter = 0;
@@ -69,21 +69,6 @@ const displayController = (() => {
         }
     }
 
-    // function boardMark(clickBox) {
-    //     let positionBox = parseInt(document.querySelector(".box").getAttribute("id"));
-    //     // let positionBox = parseInt(e.target.getAttribute("data-position"));
-    //     if (gameBoard.getBoard()[positionBox] == " ") {
-    //         (counter % 2 == 0) ? player1.addMark(positionBox) : player2.addMark(positionBox);
-    //         counter = countClicks();
-
-    //         switchTurn(counter);
-    //         // let message = document.getElementById("turn-text");
-    //         // let isGameOver = gameOver();
-            
-    //     }
-        
-    // }
-
     function markEachBoard(e) {
         // let positionBox = parseInt(e.target.getAttribute("data-position"));
         let positionBox = parseInt(e.target.getAttribute("id"));
@@ -92,8 +77,15 @@ const displayController = (() => {
             counter = countClicks();
 
             switchTurn(counter);
-            // let message = document.getElementById("turn-text");
-            // let isGameOver = gameOver();
+            // if (counter == 9) {
+            //     document.getElementById("turn-text").innerText = "draw game!"
+            // }
+            let message = document.getElementById("messages");
+            winning(gameBoard.getBoard(), player1.getMark() || player2.getMark())
+            if( endgame === true) {
+                winMessage(player1.getName() || player2.getName());
+                removeMark(e);
+            }
             
         }
         
@@ -103,6 +95,44 @@ const displayController = (() => {
         let boxCells = document.querySelectorAll('.box');
         for(let boxCell of boxCells) {
             boxCell.removeEventListener('click', markEachBoard);
+        }
+    }
+
+    function winMessage(name) {
+        document.getElementById('messages').innerText = `${name} is winner!`
+    }
+
+    const winning = (board,symbol   ) => {
+
+        const win = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        win.forEach(element => {
+            if (
+            board[element[0]] === symbol &&
+            board[element[1]] === symbol &&
+            board[element[2]] === symbol
+            ) {
+                endgame = true
+            }
+        })
+    }
+
+    
+
+    function draw() {
+        counter = countClicks();
+        if (counter == 9 && !endgame) {
+            document.getElementById("messages").innerText = "draw game!"
+            endgame = true;
         }
     }
 
