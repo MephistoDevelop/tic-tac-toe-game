@@ -33,12 +33,6 @@ const Player = (name, mark) => {
 const displayController = (() => {
   const player1 = Player('Ansar', 'X');
   const player2 = Player('Memphisto', 'O');
-  let countClicks = clickCounter();
-  let counter = 0;
-  let endgame = false;
-  const beep = new Audio();
-  beep.src =
-    'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
 
   function clickCounter() {
     let counter = 0;
@@ -48,26 +42,12 @@ const displayController = (() => {
     };
   }
 
-  const playGame = () => {
-    let boxCells = document.querySelectorAll('.box');
-    for (let boxCell of boxCells) {
-      boxCell.addEventListener('click', markEachBoard);
-      boxCell.addEventListener('click', soundClick);
-    }
-  };
-
-  const soundClick = () => {
-    beep.play();
-  };
-  const switchTurn = (counter) => {
-    const message = document.getElementById('messages');
-    if (counter % 2 === 0) {
-      message.innerText = `${player1.getName()}'s Turn`;
-    } else {
-      message.innerText = `${player2.getName()}'s Turn`;
-    }
-  };
-
+  const countClicks = clickCounter();
+  let counter = 0;
+  let endgame = false;
+  //   const beep = new Audio();
+  //   beep.src =
+  //     'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
   function markEachBoard(e) {
     const positionBox = parseInt(e.target.getAttribute('id'));
     if (gameBoard.getBoard()[positionBox] === ' ') {
@@ -97,6 +77,26 @@ const displayController = (() => {
       }
     }
   }
+
+  const playGame = () => {
+    const boxCells = document.querySelectorAll('.box');
+    for (let boxCell of boxCells) {
+      boxCell.addEventListener('click', markEachBoard);
+      boxCell.addEventListener('click', soundClick);
+    }
+  };
+
+  const soundClick = () => {
+    beep.play();
+  };
+  const switchTurn = (counter) => {
+    const message = document.getElementById('messages');
+    if (counter % 2 === 0) {
+      message.innerText = `${player1.getName()}'s Turn`;
+    } else {
+      message.innerText = `${player2.getName()}'s Turn`;
+    }
+  };
 
   const removeMark = () => {
     const boxCells = document.querySelectorAll('.box');
