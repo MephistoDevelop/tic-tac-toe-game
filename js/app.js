@@ -132,7 +132,7 @@ const displayController = (() => {
     });
   };
   const newGame = () => {
-    let newBtn = document.getElementById('button');
+    const newBtn = document.getElementById('button');
     newBtn.addEventListener('click', () => {
       location.reload();
     });
