@@ -45,9 +45,9 @@ const displayController = (() => {
   const countClicks = clickCounter();
   let counter = 0;
   let endgame = false;
-  //   const beep = new Audio();
-  //   beep.src =
-  //     'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
+  const beep = new Audio();
+  beep.src =
+    'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
   function markEachBoard(e) {
     const positionBox = parseInt(e.target.getAttribute('id'));
     if (gameBoard.getBoard()[positionBox] === ' ') {
