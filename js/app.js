@@ -38,7 +38,6 @@ const displayController = (() => {
     let countClicks = clickCounter();
     let counter = 0;
     let endgame = false;
-
     function clickCounter() {
         let counter = 0;
         return() => {
@@ -70,20 +69,17 @@ const displayController = (() => {
     }
 
     function markEachBoard(e) {
-        // let positionBox = parseInt(e.target.getAttribute("data-position"));
         let positionBox = parseInt(e.target.getAttribute("id"));
         if (gameBoard.getBoard()[positionBox] == " ") {
             (counter % 2 == 0) ? player1.addMark(positionBox) : player2.addMark(positionBox);
             counter = countClicks();
 
-            switchTurn(counter);
-            // if (counter == 9) {
-            //     document.getElementById("turn-text").innerText = "draw game!"
-            // }
-            let message = document.getElementById("messages");
-            winning(gameBoard.getBoard(), player1.getMark() || player2.getMark())
+           switchTurn(counter);
+            let mark = (counter % 2 == 0)  ? player2.getMark() : player1.getMark()
+            winning(gameBoard.getBoard(), mark)
             if( endgame === true) {
-                winMessage(player1.getName() || player2.getName());
+                let namePlayer = (counter % 2 == 0) ? player2.getName() : player1.getName()
+                winMessage(namePlayer);
                 removeMark(e);
             }
 
@@ -127,7 +123,7 @@ const displayController = (() => {
             board[element[1]] === symbol &&
             board[element[2]] === symbol
             ) {
-                endgame = true
+                endgame = true;
             }
         })
     }
@@ -142,7 +138,7 @@ const displayController = (() => {
         }
     }
 
-    return {playGame,switchTurn,markEachBoard,removeMark,};
+    return {playGame,switchTurn,markEachBoard,removeMark,winning,};
 
 })();
 
