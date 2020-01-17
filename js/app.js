@@ -66,7 +66,7 @@ const displayController = (() => {
   }
   const switchTurn = (counter) => {
     let message = document.getElementById('messages');
-    if (counter % 2 == 0) {
+    if (counter % 2 === 0) {
       message.innerText = `${player1.getName()}'s Turn`;
     } else {
       message.innerText = `${player2.getName()}'s Turn`;
@@ -75,18 +75,18 @@ const displayController = (() => {
 
   function markEachBoard(e) {
     let positionBox = parseInt(e.target.getAttribute('id'));
-    if (gameBoard.getBoard()[positionBox] == ' ') {
-      counter % 2 == 0
+    if (gameBoard.getBoard()[positionBox] === ' ') {
+      counter % 2 === 0
         ? player1.addMark(positionBox)
         : player2.addMark(positionBox);
       counter = countClicks();
 
       switchTurn(counter);
-      let mark = counter % 2 == 0 ? player2.getMark() : player1.getMark();
+      let mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
       winning(gameBoard.getBoard(), mark);
       if (endgame === true) {
         let namePlayer =
-          counter % 2 == 0 ? player2.getName() : player1.getName();
+          counter % 2 === 0 ? player2.getName() : player1.getName();
         winMessage(namePlayer);
         removeMark(e);
         beep.src =
