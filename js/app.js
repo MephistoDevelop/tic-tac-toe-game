@@ -1,15 +1,3 @@
-const Player = (name, mark) => {
-  const getName = () => name;
-  const getMark = () => mark;
-  const addMark = (position) => {
-    gameBoard.getBoard()[position] = mark;
-    let boxPosition = document.getElementById(`${position}`);
-    boxPosition.textContent = gameBoard.getBoard()[position];
-  };
-
-  return { getName, getMark, addMark };
-};
-
 const gameBoard = (() => {
   const board = [];
 
@@ -20,7 +8,7 @@ const gameBoard = (() => {
   const getBoard = () => board;
 
   const resetBoard = () => {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 9; i += 1) {
       board[i] = ' ';
       let boxPosition = document.getElementById(`${i}`);
       boxPosition.textContent = board[i];
@@ -30,21 +18,33 @@ const gameBoard = (() => {
   return { getBoard, resetBoard };
 })();
 
+const Player = (name, mark) => {
+  const getName = () => name;
+  const getMark = () => mark;
+  const addMark = (position) => {
+    gameBoard.getBoard()[position] = mark;
+    const boxPosition = document.getElementById(`${position}`);
+    boxPosition.textContent = gameBoard.getBoard()[position];
+  };
+
+  return { getName, getMark, addMark };
+};
+
 const displayController = (() => {
-  let player1 = Player('Ansar', 'X');
-  let player2 = Player('Memphisto', 'O');
-  let countClicks = clickCounter();
-  let counter = 0;
-  let endgame = false;
-  let beep = new Audio();
-  beep.src =
-    'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
+  const player1 = Player('Ansar', 'X');
+  const player2 = Player('Memphisto', 'O');
   function clickCounter() {
     let counter = 0;
     return () => {
-      counter++;
+      counter += 1;
       return counter;
     };
+    let countClicks = clickCounter();
+    let counter = 0;
+    let endgame = false;
+    const beep = new Audio();
+    beep.src =
+      'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
   }
 
   function resetClicks() {
