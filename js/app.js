@@ -33,18 +33,19 @@ const Player = (name, mark) => {
 const displayController = (() => {
   const player1 = Player('Ansar', 'X');
   const player2 = Player('Memphisto', 'O');
+  let countClicks = clickCounter();
+  let counter = 0;
+  let endgame = false;
+  let beep = new Audio();
+  beep.src =
+    'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
+
   function clickCounter() {
     let counter = 0;
     return () => {
       counter += 1;
       return counter;
     };
-    let countClicks = clickCounter();
-    let counter = 0;
-    let endgame = false;
-    const beep = new Audio();
-    beep.src =
-      'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
   }
 
   function resetClicks() {
