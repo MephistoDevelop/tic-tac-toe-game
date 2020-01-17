@@ -38,6 +38,8 @@ const displayController = (() => {
     let countClicks = clickCounter();
     let counter = 0;
     let endgame = false;
+    let beep = new Audio();
+    beep.src = "http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3";
     function clickCounter() {
         let counter = 0;
         return() => {
@@ -56,9 +58,13 @@ const displayController = (() => {
         let boxCells = document.querySelectorAll('.box');
         for(let boxCell of boxCells) {
             boxCell.addEventListener('click', markEachBoard);
+            boxCell.addEventListener('click', soundClick);
         }
     }
 
+    function soundClick() {
+        beep.play();
+    }
     const switchTurn = (counter) => {
         let message = document.getElementById("messages");
         if (counter % 2 == 0){
@@ -81,14 +87,15 @@ const displayController = (() => {
                 let namePlayer = (counter % 2 == 0) ? player2.getName() : player1.getName()
                 winMessage(namePlayer);
                 removeMark(e);
+                beep.src = "http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3";
             }
 
             if (counter === 9 && endgame !== true) {
                 document.getElementById("messages").innerText = "draw game!"
                 endgame = true;
                 removeMark(e);
+                beep.src = "http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3";
             }
-            
         }
         
     }
