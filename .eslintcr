@@ -1,7 +1,4 @@
-{
-  "settings": {
-    "import/resolver": "webpack"
-  },
+{cz
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2015,
