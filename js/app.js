@@ -1,7 +1,7 @@
 const gameBoard = (() => {
   const board = [];
 
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i += 1) {
     board[i] = ' ';
   }
 
@@ -10,7 +10,7 @@ const gameBoard = (() => {
   const resetBoard = () => {
     for (let i = 0; i < 9; i += 1) {
       board[i] = ' ';
-      let boxPosition = document.getElementById(`${i}`);
+      const boxPosition = document.getElementById(`${i}`);
       boxPosition.textContent = board[i];
     }
   };
@@ -36,7 +36,7 @@ const displayController = (() => {
   let countClicks = clickCounter();
   let counter = 0;
   let endgame = false;
-  let beep = new Audio();
+  const beep = new Audio();
   beep.src =
     'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
 
@@ -48,12 +48,6 @@ const displayController = (() => {
     };
   }
 
-  function resetClicks() {
-    countClicks = clickCounter();
-    counter = 0;
-    switchTurn(counter);
-  }
-
   const playGame = () => {
     let boxCells = document.querySelectorAll('.box');
     for (let boxCell of boxCells) {
@@ -62,11 +56,11 @@ const displayController = (() => {
     }
   };
 
-  function soundClick() {
+  const soundClick = () => {
     beep.play();
-  }
+  };
   const switchTurn = (counter) => {
-    let message = document.getElementById('messages');
+    const message = document.getElementById('messages');
     if (counter % 2 === 0) {
       message.innerText = `${player1.getName()}'s Turn`;
     } else {
@@ -75,7 +69,7 @@ const displayController = (() => {
   };
 
   function markEachBoard(e) {
-    let positionBox = parseInt(e.target.getAttribute('id'));
+    const positionBox = parseInt(e.target.getAttribute('id'));
     if (gameBoard.getBoard()[positionBox] === ' ') {
       counter % 2 === 0
         ? player1.addMark(positionBox)
@@ -83,10 +77,10 @@ const displayController = (() => {
       counter = countClicks();
 
       switchTurn(counter);
-      let mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
+      const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
       winning(gameBoard.getBoard(), mark);
       if (endgame === true) {
-        let namePlayer =
+        const namePlayer =
           counter % 2 === 0 ? player2.getName() : player1.getName();
         winMessage(namePlayer);
         removeMark(e);
@@ -105,7 +99,7 @@ const displayController = (() => {
   }
 
   const removeMark = () => {
-    let boxCells = document.querySelectorAll('.box');
+    const boxCells = document.querySelectorAll('.box');
     for (let boxCell of boxCells) {
       boxCell.removeEventListener('click', markEachBoard);
     }
