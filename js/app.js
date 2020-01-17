@@ -86,6 +86,12 @@ const displayController = (() => {
                 winMessage(player1.getName() || player2.getName());
                 removeMark(e);
             }
+
+            if (counter === 9 && endgame !== true) {
+                document.getElementById("messages").innerText = "draw game!"
+                endgame = true;
+                removeMark(e);
+            }
             
         }
         
