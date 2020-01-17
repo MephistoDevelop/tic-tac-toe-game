@@ -127,19 +127,28 @@ const displayController = (() => {
             }
         })
     }
+    const newGame = () => {
+        let newBtn = document.getElementById("button");
+        newBtn.addEventListener('click', () => {
+            location.reload();
+        })
+    }
 
     
 
-    function draw() {
-        counter = countClicks();
-        if (counter == 9 && !endgame) {
-            document.getElementById("messages").innerText = "draw game!"
-            endgame = true;
-        }
-    }
+   
 
-    return {playGame,switchTurn,markEachBoard,removeMark,winning,};
+    return {playGame,switchTurn,markEachBoard,removeMark,winning,newGame};
 
 })();
 
-displayController.playGame();
+const gameController = (() => {
+    const gameActions = () => {
+        displayController.playGame();
+        displayController.newGame();
+    }
+
+    return {gameActions,};
+})();
+
+gameController.gameActions();
