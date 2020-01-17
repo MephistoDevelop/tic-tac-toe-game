@@ -34,6 +34,7 @@ const displayController = (() => {
   const player1 = Player('Ansar', 'X');
   const player2 = Player('Memphisto', 'O');
   const msg = document.getElementById('messages');
+  const boxCells = document.querySelectorAll('.box');
   function clickCounter() {
     let counter = 0;
     return () => {
@@ -79,7 +80,6 @@ const displayController = (() => {
   }
 
   const playGame = () => {
-    const boxCells = document.querySelectorAll('.box');
     for (let boxCell of boxCells) {
       boxCell.addEventListener('click', markEachBoard);
       boxCell.addEventListener('click', soundClick);
@@ -99,7 +99,6 @@ const displayController = (() => {
   };
 
   const removeMark = () => {
-    const boxCells = document.querySelectorAll('.box');
     for (let boxCell of boxCells) {
       boxCell.removeEventListener('click', markEachBoard);
     }
