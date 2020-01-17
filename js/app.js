@@ -1,51 +1,45 @@
-// import * as Board from './board.js';
+const Player = (name,mark) => {
 
-// () => {
-//   console.log("I'm main");
-// };
-//Player module
-
-const Player = (name, mark) => {
     const getName = () => name;
     const getMark = () => mark;
     const addMark = (position) => {
         gameBoard.getBoard()[position] = mark;
-        let boxPosition = document.getElementById(`${position}`);
-        boxPosition.textContent =gameBoard.getBoard()[position];
+        let boxPosition = document.getElementById(`${position}` );
+        boxPosition.textContent = gameBoard.getBoard()[position];
     }
 
     return {getName,getMark,addMark,};
 }
 
-
 const gameBoard = (() => {
-    const board = [];
- 
-    for (let i = 0 ; i < 9; i++) {
-        board[i] = " ";
-    }
- 
-    const getBoard = () => board;
- 
-    const resetBoard = () => {
-        for (let i = 0; i < 9; i++) {
-            board[i] = " ";
-            let boxPosition = document.getElementById(`${i}`);
-            boxPosition.textContent = board[i];
-        }
-    }
- 
-    return {getBoard,resetBoard,};
- })();
- 
-//display controller
-const displayController = (()=>{
+   const board = [];
+
+   for (let i = 0 ; i < 9; i++) {
+       board[i] = " ";
+   }
+
+   const getBoard = () => board;
+
+   const resetBoard = () => {
+       for (let i = 0; i < 9; i++) {
+           board[i] = " ";
+           let boxPosition = document.getElementById(`${i}`);
+           boxPosition.textContent = board[i];
+       }
+   }
+
+   return {getBoard,resetBoard,};
+})();
+
+
+const displayController = (() => {
     let player1 = Player("Ansar", "X");
     let player2 = Player("Memphisto", "O");
     let countClicks = clickCounter();
     let counter = 0;
 
-    const clickCounter = () => {
+
+    function clickCounter() {
         let counter = 0;
         return() => {
             counter++;
@@ -53,20 +47,20 @@ const displayController = (()=>{
         }
     };
 
-    const resetClicks = () => {
+    function resetClicks() {
         countClicks = clickCounter();
         counter = 0;
         switchTurn(counter);
-    };
+    }
 
     const playGame = () => {
-        let boxCells = document.querySelector('.box');
-        for (let boxCell of boxCells) {
-            boxCells.addEventListener('click', markEachBoard);
+        let boxCells = document.querySelectorAll('.box');
+        for(let boxCell of boxCells) {
+            boxCell.addEventListener('click', markEachBoard);
         }
     }
 
-    const switchTurn = () => {
+    const switchTurn = (counter) => {
         let message = document.getElementById("messages");
         if (counter % 2 == 0){
             message.innerText = `${player1.getName()}'s Turn`;
@@ -75,18 +69,45 @@ const displayController = (()=>{
         }
     }
 
+    // function boardMark(clickBox) {
+    //     let positionBox = parseInt(document.querySelector(".box").getAttribute("id"));
+    //     // let positionBox = parseInt(e.target.getAttribute("data-position"));
+    //     if (gameBoard.getBoard()[positionBox] == " ") {
+    //         (counter % 2 == 0) ? player1.addMark(positionBox) : player2.addMark(positionBox);
+    //         counter = countClicks();
 
+    //         switchTurn(counter);
+    //         // let message = document.getElementById("turn-text");
+    //         // let isGameOver = gameOver();
+            
+    //     }
+        
+    // }
 
-    const markEachBoard = () => {
+    function markEachBoard(e) {
+        // let positionBox = parseInt(e.target.getAttribute("data-position"));
+        let positionBox = parseInt(e.target.getAttribute("id"));
+        if (gameBoard.getBoard()[positionBox] == " ") {
+            (counter % 2 == 0) ? player1.addMark(positionBox) : player2.addMark(positionBox);
+            counter = countClicks();
 
-    };
+            switchTurn(counter);
+            // let message = document.getElementById("turn-text");
+            // let isGameOver = gameOver();
+            
+        }
+        
+    }
 
-    const removeEventMark = () => {
-        let boxCells = document.querySelector('.box');
+    const removeMark = () => {
+        let boxCells = document.querySelectorAll('.box');
         for(let boxCell of boxCells) {
             boxCell.removeEventListener('click', markEachBoard);
         }
     }
 
-    return {clickCounter,resetClicks,playGame,switchTurn,markEachBoard,removeEventMark,};
-})
+    return {playGame,switchTurn,markEachBoard,removeMark,};
+
+})();
+
+displayController.playGame();
