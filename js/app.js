@@ -46,67 +46,16 @@ const displayController = (() => {
   const countClicks = clickCounter();
   let counter = 0;
   let endgame = false;
-    const beep = new Audio();
-    beep.src =
-      'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
-  function markEachBoard(e) {
-    const positionBox = parseInt(e.target.getAttribute('id'), 10);
-    if (gameBoard.getBoard()[positionBox] === ' ') {
-      counter % 2 === 0
-        ? player1.addMark(positionBox)
-        : player2.addMark(positionBox);
-      counter = countClicks();
+  const beep = new Audio();
+  beep.src = 'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
 
-      switchTurn(counter);
-      const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
-      winning(gameBoard.getBoard(), mark);
-      if (endgame === true) {
-        const namePlayer =
-          counter % 2 === 0 ? player2.getName() : player1.getName();
-        winMessage(namePlayer);
-        removeMark(e);
-        beep.src =
-          'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
-      }
-
-      if (counter === 9 && endgame !== true) {
-        msg.innerText = 'draw game!';
-        endgame = true;
-        removeMark(e);
-        beep.src =
-          'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
-      }
-    }
-  }
-
-  const playGame = () => {
-    for (let boxCell of boxCells) {
-      boxCell.addEventListener('click', markEachBoard);
-      boxCell.addEventListener('click', soundClick);
-    }
-  };
-
-  const soundClick = () => {
-    beep.play();
-  };
   const switchTurn = (counter) => {
-  
     if (counter % 2 === 0) {
       msg.innerText = `${player1.getName()}'s Turn`;
     } else {
       msg.innerText = `${player2.getName()}'s Turn`;
     }
   };
-
-  const removeMark = () => {
-    for (let boxCell of boxCells) {
-      boxCell.removeEventListener('click', markEachBoard);
-    }
-  };
-
-  function winMessage(name) {
-    msg.innerText = `${name} is winner!`;
-  }
 
   const winning = (board, symbol) => {
     const win = [
@@ -130,6 +79,63 @@ const displayController = (() => {
       }
     });
   };
+
+  
+  const removeMark = () => {
+    for (let boxCell of boxCells) {
+      boxCell.removeEventListener('click', markEachBoard);
+    }
+  };
+
+  function markEachBoard(e) {
+    const positionBox = parseInt(e.target.getAttribute('id'), 10);
+    if (gameBoard.getBoard()[positionBox] === ' ') {
+      counter % 2 === 0
+        ? player1.addMark(positionBox)
+        : player2.addMark(positionBox);
+      counter = countClicks();
+
+      switchTurn(counter);
+      const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
+      winning(gameBoard.getBoard(), mark);
+      if (endgame === true) {
+        const namePlayer =
+          counter % 2 === 0 
+          ? player2.getName() 
+          :  player1.getName();
+        winMessage(namePlayer);
+        removeMark(e);
+        beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
+      }
+
+      if (counter === 9 && endgame !== true) {
+        msg.innerText = 'draw game!';
+        endgame = true;
+        removeMark(e);
+        beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
+      }
+    }
+  }
+
+  const soundClick = () => {
+    beep.play();
+  };
+
+  const playGame = () => {
+    for (const boxCell of boxCells) {
+      boxCell.addEventListener('click', markEachBoard);
+      boxCell.addEventListener('click', soundClick);
+    }
+  };
+
+ 
+
+
+
+  function winMessage(name) {
+    msg.innerText = `${name} is winner!`;
+  }
+
   const newGame = () => {
     const newBtn = document.getElementById('button');
     newBtn.addEventListener('click', () => {
