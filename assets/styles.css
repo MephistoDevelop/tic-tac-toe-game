@@ -1,5 +1,4 @@
 body {
-<<<<<<< HEAD
   text-align: center;
   justify-content: center;
   background: linear-gradient(to left, #f1e495, #a79c06);
@@ -9,18 +8,6 @@ body {
   overflow-y: hidden;
   font-family: cursive;
   user-select: none;
-=======
-    text-align: center;
-    justify-content: center;
-    background: linear-gradient(to left, #f1e495, #a79c06);
-    width: 100%;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    font-family:  cursive;
-    user-select: none;
-    margin-top: 10px;
->>>>>>> d73c638f22e26624ff2e5f733fe964969dbd21a8
 }
 
 .add-btn {

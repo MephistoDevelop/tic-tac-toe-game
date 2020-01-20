@@ -45,7 +45,6 @@ const displayController = (() => {
   function giveName() {
     name1 = p1.value;
     name2 = p2.value;
-    console.log('im player 1: ' + name1);
     if (p1.value === '') {
       player1 = Player('Player1', 'X');
     } else {
