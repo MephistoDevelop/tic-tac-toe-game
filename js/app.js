@@ -87,37 +87,32 @@ const displayController = (() => {
   function markEachBoard(e) {
     const positionBox = parseInt(e.target.getAttribute('id'), 10);
     if (gameBoard.getBoard()[positionBox] === ' ') {
-      counter % 2 === 0
-        ? player1.addMark(positionBox)
-        : player2.addMark(positionBox);
+      counter % 2 === 0 ? player1.addMark(positionBox) : player2.addMark(positionBox);
       counter = countClicks();
 
       switchTurn(counter);
       const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
       winning(gameBoard.getBoard(), mark);
       if (endgame === true) {
-        const namePlayer = counter % 2 === 0 ? player2.getName() :  player1.getName();
+        const namePlayer = counter % 2 === 0 ? player2.getName() : player1.getName();
         winMessage(namePlayer);
-        removeMark(e);
+        for (const boxCell of boxCells) {
+          boxCell.removeEventListener('click', markEachBoard);
+        }
         beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
       }
 
       if (counter === 9 && endgame !== true) {
         msg.innerText = 'draw game!';
         endgame = true;
-        removeMark(e);
+        for (const boxCell of boxCells) {
+          boxCell.removeEventListener('click', markEachBoard);
+        }
         beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
       }
     }
   }
-  
-  const removeMark = () => {
-    for (const boxCell of boxCells) {
-      boxCell.removeEventListener('click', markEachBoard);
-    }
-  };
-
- 
+   
   const soundClick = () => {
     beep.play();
   };
@@ -139,16 +134,14 @@ const displayController = (() => {
     });
   };
 
-  return { playGame, switchTurn, markEachBoard, removeMark, winning, newGame, };
+  return { playGame, switchTurn, markEachBoard, winning, newGame, };
 })();
 
 const gameController = (() => {
-  
   const gameActions = () => {
     displayController.playGame();
     displayController.newGame();
   };
-
   return { gameActions };
 })();
 
