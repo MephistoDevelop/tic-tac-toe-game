@@ -96,19 +96,19 @@ const displayController = (() => {
       if (endgame === true) {
         const namePlayer = counter % 2 === 0 ? player2.getName() : player1.getName();
         winMessage(namePlayer);
-        for (const boxCell of boxCells) {
-          boxCell.removeEventListener('click', markEachBoard);
-        }
         beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
       }
 
       if (counter === 9 && endgame !== true) {
         msg.innerText = 'draw game!';
         endgame = true;
+        beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
+      }
+
+      if (endgame === true) {
         for (const boxCell of boxCells) {
           boxCell.removeEventListener('click', markEachBoard);
         }
-        beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
       }
     }
   }
@@ -120,9 +120,6 @@ const displayController = (() => {
   const playGame = () => {
     for (const boxCell of boxCells) {
       boxCell.addEventListener('click', markEachBoard);
-    }
-
-    for (const boxCell of boxCells) {
       boxCell.addEventListener('click', soundClick);
     }
   };
