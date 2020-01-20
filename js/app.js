@@ -80,12 +80,9 @@ const displayController = (() => {
     });
   };
 
-  
-  const removeMark = () => {
-    for (let boxCell of boxCells) {
-      boxCell.removeEventListener('click', markEachBoard);
-    }
-  };
+  function winMessage(name) {
+    msg.innerText = `${name} is winner!`;
+  }
 
   function markEachBoard(e) {
     const positionBox = parseInt(e.target.getAttribute('id'), 10);
@@ -99,10 +96,7 @@ const displayController = (() => {
       const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
       winning(gameBoard.getBoard(), mark);
       if (endgame === true) {
-        const namePlayer =
-          counter % 2 === 0 
-          ? player2.getName() 
-          :  player1.getName();
+        const namePlayer = counter % 2 === 0 ? player2.getName() :  player1.getName();
         winMessage(namePlayer);
         removeMark(e);
         beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
@@ -116,7 +110,14 @@ const displayController = (() => {
       }
     }
   }
+  
+  const removeMark = () => {
+    for (const boxCell of boxCells) {
+      boxCell.removeEventListener('click', markEachBoard);
+    }
+  };
 
+ 
   const soundClick = () => {
     beep.play();
   };
@@ -124,17 +125,12 @@ const displayController = (() => {
   const playGame = () => {
     for (const boxCell of boxCells) {
       boxCell.addEventListener('click', markEachBoard);
+    }
+
+    for (const boxCell of boxCells) {
       boxCell.addEventListener('click', soundClick);
     }
   };
-
- 
-
-
-
-  function winMessage(name) {
-    msg.innerText = `${name} is winner!`;
-  }
 
   const newGame = () => {
     const newBtn = document.getElementById('button');
@@ -147,6 +143,7 @@ const displayController = (() => {
 })();
 
 const gameController = (() => {
+  
   const gameActions = () => {
     displayController.playGame();
     displayController.newGame();
