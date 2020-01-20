@@ -56,9 +56,9 @@ body {
     font-size: 16px;
 }
 
-/* .hide {
+.hide {
     display:none
-} */
+}
 
 .game-over {
     color:rgb(10, 114, 10);

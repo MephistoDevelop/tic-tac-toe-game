@@ -124,6 +124,14 @@ const displayController = (() => {
     }
   };
 
+  const playBtn = () => {
+    const btnPlay = document.getElementById("btn-play");
+    btnPlay.addEventListener('click', () => {
+      document.getElementById('board').classList.remove('hide');
+      document.getElementById('buttons').classList.remove('hide');
+      document.getElementById('form').classList.add('hide');
+    })
+  }
   const newGame = () => {
     const newBtn = document.getElementById('button');
     newBtn.addEventListener('click', () => {
@@ -131,13 +139,14 @@ const displayController = (() => {
     });
   };
 
-  return { playGame, switchTurn, markEachBoard, winning, newGame, };
+  return { playGame, switchTurn, markEachBoard, winning, newGame, playBtn };
 })();
 
 const gameController = (() => {
   const gameActions = () => {
     displayController.playGame();
     displayController.newGame();
+    displayController.playBtn();
   };
   return { gameActions };
 })();
