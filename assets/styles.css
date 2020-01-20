@@ -8,7 +8,7 @@ body {
     overflow-y: hidden;
     font-family:  cursive;
     user-select: none;
-
+    margin-top: 10px;
 }
 
 .add-btn {
@@ -209,6 +209,10 @@ span {
     pointer-events: all;
 }
 /* Media querie for 768 and max screens */
+
+.form {
+    margin-top: 1000px;
+}
 
 @media only screen and (min-width: 768px) {
 

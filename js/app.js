@@ -30,24 +30,53 @@ const Player = (name, mark) => {
   return { getName, getMark, addMark };
 };
 
+
 const displayController = (() => {
-  const player1 = Player('Ansar', 'X');
-  const player2 = Player('Memphisto', 'O');
+
+  let player1;
+  let player2;
   const msg = document.getElementById('messages');
   const boxCells = document.querySelectorAll('.box');
+  const p1 = document.getElementById('player-1');
+  const p2 = document.getElementById('player-2');
+  const countClicks = clickCounter();
+  let counter = 0;
+  let endgame = false;
+  
+  const giveName = () => {
+    name1 = p1.value;
+    name2 = p2.value;
+    if (p1.value === '') {
+      player1 = Player("Player1", 'X');
+    }else {
+      player1 = Player(name1,'X');
+    }
+  
+    if (p2.value === '') {
+      player2 = Player("Player2", 'O');
+    }else {
+      player2 = Player(name2, 'O');
+    }
+  }
+
   function clickCounter() {
-    let counter = 0;
     return () => {
       counter += 1;
       return counter;
     };
   }
 
-  const countClicks = clickCounter();
-  let counter = 0;
-  let endgame = false;
-  const beep = new Audio();
-  beep.src = 'http://freesoundeffect.net/sites/default/files/sci-fi-beepelectric-153-sound-effect-36810303.mp3';
+  function resetClicks() {
+    counter = 0;
+    switchTurn(counter);
+    endgame = false;
+    for (const boxCell of boxCells) {
+      boxCell.addEventListener('click', markEachBoard);
+    }
+
+}
+
+
 
   const switchTurn = (counter) => {
     if (counter % 2 === 0) {
@@ -96,13 +125,11 @@ const displayController = (() => {
       if (endgame === true) {
         const namePlayer = counter % 2 === 0 ? player2.getName() : player1.getName();
         winMessage(namePlayer);
-        beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
       }
 
       if (counter === 9 && endgame !== true) {
         msg.innerText = 'draw game!';
         endgame = true;
-        beep.src = 'http://freesoundeffect.net/sites/default/files/menu-sfx--wrong---invalid-selection---7-sound-effect-9982300.mp3';
       }
 
       if (endgame === true) {
@@ -113,24 +140,21 @@ const displayController = (() => {
     }
   }
    
-  const soundClick = () => {
-    beep.play();
-  };
-
   const playGame = () => {
     for (const boxCell of boxCells) {
       boxCell.addEventListener('click', markEachBoard);
-      boxCell.addEventListener('click', soundClick);
     }
   };
 
   const playBtn = () => {
+    giveName();
     const btnPlay = document.getElementById("btn-play");
     btnPlay.addEventListener('click', () => {
       document.getElementById('board').classList.remove('hide');
       document.getElementById('buttons').classList.remove('hide');
       document.getElementById('form').classList.add('hide');
     })
+    
   }
   const newGame = () => {
     const newBtn = document.getElementById('button');
@@ -139,7 +163,15 @@ const displayController = (() => {
     });
   };
 
-  return { playGame, switchTurn, markEachBoard, winning, newGame, playBtn };
+  const restartGame = () => {
+    const rstBtn = document.getElementById('restart');
+    rstBtn.addEventListener('click', () => {
+      gameBoard.resetBoard();
+      resetClicks();
+    })
+  }
+
+  return { playGame, switchTurn, markEachBoard, winning, newGame, playBtn,giveName,restartGame};
 })();
 
 const gameController = (() => {
@@ -147,6 +179,7 @@ const gameController = (() => {
     displayController.playGame();
     displayController.newGame();
     displayController.playBtn();
+    displayController.restartGame();
   };
   return { gameActions };
 })();
