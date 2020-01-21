@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax: ["ForInStatement"] */
+
 const gameBoard = (() => {
   const board = [];
 
