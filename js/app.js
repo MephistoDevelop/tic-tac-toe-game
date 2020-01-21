@@ -95,6 +95,9 @@ const displayController = (() => {
       msg.innerText = `${player2.getName()}'s Turn`;
     }
   };
+  function winMessage(name) {
+    msg.innerText = `${name} is winner!`;
+  }
 
   function markEachBoard(e) {
     const positionBox = parseInt(e.target.getAttribute('id'), 10);
@@ -135,12 +138,6 @@ const displayController = (() => {
       boxCell.addEventListener('click', markEachBoard);
     }
   }
-
-  function winMessage(name) {
-    msg.innerText = `${name} is winner!`;
-  }
-
-
 
   const playGame = () => {
     for (const boxCell of boxCells) {
