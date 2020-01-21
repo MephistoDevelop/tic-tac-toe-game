@@ -124,7 +124,7 @@ const displayController = (() => {
       }
 
       if (endgame === true) {
-        boxCells.forEach(function (boxCell) {
+        boxCells.forEach((boxCell) => {
           boxCell.removeEventListener('click', markEachBoard);
         });
       }
@@ -135,14 +135,13 @@ const displayController = (() => {
     counter = 0;
     switchTurn(counter);
     endgame = false;
-    boxCells.forEach(function (boxCell) {
+    boxCells.forEach((boxCell) => {
       boxCell.addEventListener('click', markEachBoard);
     });
-
   }
 
   const playGame = () => {
-    boxCells.forEach(function (boxCell) {
+    boxCells.forEach((boxCell) => {
       boxCell.addEventListener('click', markEachBoard);
     });
   };
