@@ -30,6 +30,7 @@ const Player = (name, mark) => {
   return { getName, getMark, addMark };
 };
 
+
 const displayController = (() => {
   let player1;
   let player2;
@@ -37,9 +38,6 @@ const displayController = (() => {
   const boxCells = document.querySelectorAll('.box');
   const p1 = document.getElementById('player-1');
   const p2 = document.getElementById('player-2');
-  const countClicks = clickCounter();
-  let counter = 0;
-  let endgame = false;
 
   function clickCounter() {
     return () => {
@@ -47,6 +45,10 @@ const displayController = (() => {
       return counter;
     };
   }
+  const countClicks = clickCounter();
+  let counter = 0;
+  let endgame = false;
+
 
   function giveName() {
     const name1 = p1.value;
@@ -72,6 +74,37 @@ const displayController = (() => {
     }
   };
 
+  function markEachBoard(e) {
+    const positionBox = parseInt(e.target.getAttribute('id'), 10);
+    if (gameBoard.getBoard()[positionBox] === ' ') {
+      if (counter % 2 === 0) {
+        player1.addMark(positionBox);
+      } else {
+        player2.addMark(positionBox);
+      }
+      counter = countClicks();
+
+      switchTurn(counter);
+      const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
+      winning(gameBoard.getBoard(), mark);
+      if (endgame === true) {
+        const namePlayer = counter % 2 === 0 ? player2.getName() : player1.getName();
+        winMessage(namePlayer);
+      }
+
+      if (counter === 9 && endgame !== true) {
+        msg.innerText = 'draw game!';
+        endgame = true;
+      }
+
+      if (endgame === true) {
+        for (const boxCell of boxCells) {
+          boxCell.removeEventListener('click', markEachBoard);
+        }
+      }
+    }
+  }
+
   function resetClicks() {
     counter = 0;
     switchTurn(counter);
@@ -95,9 +128,9 @@ const displayController = (() => {
 
     win.forEach((element) => {
       if (
-        board[element[0]] === symbol &&
-        board[element[1]] === symbol &&
-        board[element[2]] === symbol
+        board[element[0]] === symbol
+        && board[element[1]] === symbol
+        && board[element[2]] === symbol
       ) {
         endgame = true;
       }
@@ -108,37 +141,7 @@ const displayController = (() => {
     msg.innerText = `${name} is winner!`;
   }
 
-  function markEachBoard(e) {
-    const positionBox = parseInt(e.target.getAttribute('id'), 10);
-    if (gameBoard.getBoard()[positionBox] === ' ') {
-      if (counter % 2 === 0) {
-        player1.addMark(positionBox);
-      } else {
-        player2.addMark(positionBox);
-      }
-      counter = countClicks();
 
-      switchTurn(counter);
-      const mark = counter % 2 === 0 ? player2.getMark() : player1.getMark();
-      winning(gameBoard.getBoard(), mark);
-      if (endgame === true) {
-        const namePlayer =
-          counter % 2 === 0 ? player2.getName() : player1.getName();
-        winMessage(namePlayer);
-      }
-
-      if (counter === 9 && endgame !== true) {
-        msg.innerText = 'draw game!';
-        endgame = true;
-      }
-
-      if (endgame === true) {
-        for (const boxCell of boxCells) {
-          boxCell.removeEventListener('click', markEachBoard);
-        }
-      }
-    }
-  }
 
   const playGame = () => {
     for (const boxCell of boxCells) {
