@@ -30,13 +30,6 @@ const Player = (name, mark) => {
   return { getName, getMark, addMark };
 };
 
-function clickCounter() {
-  return () => {
-    counter += 1;
-    return counter;
-  };
-}
-
 const displayController = (() => {
   let player1;
   let player2;
@@ -47,6 +40,13 @@ const displayController = (() => {
   const countClicks = clickCounter();
   let counter = 0;
   let endgame = false;
+
+  function clickCounter() {
+    return () => {
+      counter += 1;
+      return counter;
+    };
+  }
 
   function giveName() {
     const name1 = p1.value;
@@ -111,9 +111,11 @@ const displayController = (() => {
   function markEachBoard(e) {
     const positionBox = parseInt(e.target.getAttribute('id'), 10);
     if (gameBoard.getBoard()[positionBox] === ' ') {
-      counter % 2 === 0
-        ? player1.addMark(positionBox)
-        : player2.addMark(positionBox);
+      if (counter % 2 === 0) {
+        player1.addMark(positionBox);
+      } else {
+        player2.addMark(positionBox);
+      }
       counter = countClicks();
 
       switchTurn(counter);
