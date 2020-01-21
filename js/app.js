@@ -123,9 +123,9 @@ const displayController = (() => {
       }
 
       if (endgame === true) {
-        for (const boxCell of boxCells) {
+        boxCells.forEach(element => {
           boxCell.removeEventListener('click', markEachBoard);
-        }
+        });
       }
     }
   }
@@ -134,15 +134,15 @@ const displayController = (() => {
     counter = 0;
     switchTurn(counter);
     endgame = false;
-    for (const boxCell of boxCells) {
+    boxCells.forEach(boxCell => {
       boxCell.addEventListener('click', markEachBoard);
-    }
+    });
   }
 
   const playGame = () => {
-    for (const boxCell of boxCells) {
+    boxCells.forEach(boxCell => {
       boxCell.addEventListener('click', markEachBoard);
-    }
+    });
   };
 
   function playBtn() {
