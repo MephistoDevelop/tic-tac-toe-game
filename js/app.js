@@ -124,7 +124,7 @@ const displayController = (() => {
       }
 
       if (endgame === true) {
-        for (const boxCell of boxCells) {
+        for (const boxCell in boxCells) {
           boxCell.removeEventListener('click', markEachBoard);
         }
       }
@@ -135,13 +135,13 @@ const displayController = (() => {
     counter = 0;
     switchTurn(counter);
     endgame = false;
-    for (const boxCell of boxCells) {
+    for (const boxCell in boxCells) {
       boxCell.addEventListener('click', markEachBoard);
     }
   }
 
   const playGame = () => {
-    for (const boxCell of boxCells) {
+    for (const boxCell in boxCells) {
       boxCell.addEventListener('click', markEachBoard);
     }
   };
