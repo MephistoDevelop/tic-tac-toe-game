@@ -1,4 +1,3 @@
-/*eslint no-undef: "error"*/
 const gameBoard = (() => {
   const board = [];
 
@@ -31,6 +30,13 @@ const Player = (name, mark) => {
   return { getName, getMark, addMark };
 };
 
+function clickCounter() {
+  return () => {
+    counter += 1;
+    return counter;
+  };
+}
+
 const displayController = (() => {
   let player1;
   let player2;
@@ -43,8 +49,8 @@ const displayController = (() => {
   let endgame = false;
 
   function giveName() {
-    name1 = p1.value;
-    name2 = p2.value;
+    const name1 = p1.value;
+    const name2 = p2.value;
     if (p1.value === '') {
       player1 = Player('Player1', 'X');
     } else {
@@ -58,12 +64,13 @@ const displayController = (() => {
     }
   }
 
-  function clickCounter() {
-    return () => {
-      counter += 1;
-      return counter;
-    };
-  }
+  const switchTurn = (counter) => {
+    if (counter % 2 === 0) {
+      msg.innerText = `${player1.getName()}'s Turn`;
+    } else {
+      msg.innerText = `${player2.getName()}'s Turn`;
+    }
+  };
 
   function resetClicks() {
     counter = 0;
@@ -73,14 +80,6 @@ const displayController = (() => {
       boxCell.addEventListener('click', markEachBoard);
     }
   }
-
-  const switchTurn = (counter) => {
-    if (counter % 2 === 0) {
-      msg.innerText = `${player1.getName()}'s Turn`;
-    } else {
-      msg.innerText = `${player2.getName()}'s Turn`;
-    }
-  };
 
   const winning = (board, symbol) => {
     const win = [
