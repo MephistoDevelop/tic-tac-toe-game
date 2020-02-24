@@ -2,7 +2,7 @@
 
 > Project taked from Microverse Curriculum from the The Odin Page project site.
 
-![screenshot](./tictactoe.gif)
+![screenshot](./titactoe.gif)
 
 Javascript project from The Odin Project [curriculum]()
 
